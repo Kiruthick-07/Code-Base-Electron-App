@@ -1,0 +1,81 @@
+.vscode-sidenav {
+  width: 240px;
+  background: #1e1e1e;
+  color: #cccccc;
+  font-family: 'JetBrains Mono', Menlo, monospace;
+  font-size: 13px;
+  height: 100vh;
+  padding: 10px 0 10px 0;
+  border-right: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 0 0 0 #222;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 45px;
+  z-index: 1000;
+}
+
+.vscode-sidenav::-webkit-scrollbar {
+  width: 8px;
+  background: #23272e;
+  
+}
+.vscode-sidenav::-webkit-scrollbar-thumb {
+  background: #23272e;
+  border-radius: 4px;
+}
+
+.vscode-section-title {
+  color: #858585;
+  font-size: 11px;
+  padding: 8px 24px 4px 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.vscode-folder {
+  cursor: pointer;
+  margin: 0 0 0 16px;
+  padding: 4px 0 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+  user-select: none;
+}
+.vscode-folder:hover {
+  background: #23272e;
+}
+
+.vscode-file {
+  padding: 2px 0 2px 36px;
+  margin: 0;
+  color: #cccccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+  cursor: pointer;
+  user-select: none;
+}
+.vscode-file:hover {
+  background: #23272e;
+  color: #fff;
+}
+
+.vscode-indent {
+  margin-left: 16px;
+}
+
+.vscode-folder-icon {
+  margin-right: 6px;
+  color: #c586c0;
+}
+
+.vscode-file-icon {
+  margin-right: 6px;
+  color: #4ec9b0;
+}

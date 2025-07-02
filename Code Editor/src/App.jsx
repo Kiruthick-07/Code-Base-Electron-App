@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import Header from './Components/Header'
-
+import Sidenav from './Components/Sidenav'
 import './App.css'
 
 function App() {
@@ -9,7 +8,7 @@ function App() {
   return (
     <>
       <Header />
-      
+      <Sidenav />
     </>
   )
 }
