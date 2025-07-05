@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   return (
-    <div style={headerStyle}>
+    <div style={headerStyle} className="header-container">
       <div style={leftMenuStyle}>
         <div className="menu-btn">☰</div>
         <button className="menu-btn">File</button>

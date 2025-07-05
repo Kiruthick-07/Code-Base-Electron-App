@@ -38,3 +38,9 @@
   border: 1.5px solid #0078d4;
   box-shadow: 0 2px 8px rgba(0,120,212,0.15);
 }
+
+/* VS Code style header border */
+.header-container {
+  border-bottom: 1px solid #3c3c3c;
+  box-shadow: 0 1px 0 0 #1e1e1e;
+}
