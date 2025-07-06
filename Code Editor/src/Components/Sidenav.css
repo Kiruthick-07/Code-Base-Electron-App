@@ -1,6 +1,6 @@
 .vscode-sidenav {
   width: 240px;
-  background: #1e1e1e;
+  background: #252526;
   color: #cccccc;
   font-family: 'JetBrains Mono', Menlo, monospace;
   font-size: 13px;
@@ -13,7 +13,7 @@
   overflow-y: auto;
   position: fixed;
   left: 0;
-  top: 45px;
+  top: 47px;
   z-index: 1000;
 }
 
