@@ -1,6 +1,6 @@
 import React from 'react';
 import Editor from '@monaco-editor/react';
- // Optional styling for tabs
+ 
 
 const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs }) => {
   const editorOptions = {
@@ -16,32 +16,23 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
   const activeFile = openTabs.find(tab => tab.id === activeTab);
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#1e1e1e' }}>
+    <div className="vsc-editor-outer">
       {/* Tab bar */}
-      <div style={{ display: 'flex', borderBottom: '1px solid #333', backgroundColor: '#252526' }}>
+      <div className="vsc-tabbar">
         {openTabs.map(tab => (
           <div
             key={tab.id}
+            className={`vsc-tab${activeTab === tab.id ? ' vsc-tab-active' : ''}`}
             onClick={() => setActiveTab(tab.id)}
-            style={{
-              padding: '6px 12px',
-              cursor: 'pointer',
-              backgroundColor: activeTab === tab.id ? '#1e1e1e' : '#2d2d2d',
-              color: '#ccc',
-              borderRight: '1px solid #333',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8
-            }}
           >
-            {tab.name}
-            <span onClick={(e) => { e.stopPropagation(); onCloseTab(tab.id); }} style={{ cursor: 'pointer' }}>×</span>
+            <span className="vsc-tab-label">{tab.name}</span>
+            <span className="vsc-tab-close" onClick={(e) => { e.stopPropagation(); onCloseTab(tab.id); }}>×</span>
           </div>
         ))}
       </div>
 
       {/* Editor */}
-      <div style={{ flexGrow: 1 }}>
+      <div className="vsc-editor-inner">
         {activeFile ? (
           <Editor
             height="100%"

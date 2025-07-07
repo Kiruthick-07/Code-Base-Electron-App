@@ -44,3 +44,40 @@
   border-bottom: 1px solid #3c3c3c;
   box-shadow: 0 1px 0 0 #1e1e1e;
 }
+.menu-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  padding: 4px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.menu-btn:hover {
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.file-dropdown-menu {
+  position: fixed;
+  top: 36px;
+  left: 60px;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  min-width: 200px;
+  z-index: 1100;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.file-dropdown-item {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #ccc;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.file-dropdown-item:hover {
+  background-color: #2a2a2a;
+  color: white;
+}

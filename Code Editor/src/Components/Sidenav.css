@@ -14,7 +14,7 @@
   position: fixed;
   left: 0;
   top: 47px;
-  z-index: 1000;
+  z-index: 900;
 }
 
 .vscode-sidenav::-webkit-scrollbar {
