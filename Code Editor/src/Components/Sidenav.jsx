@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Sidenav.css'
 
-// Helper for unique IDs
 const uuid = () => '_' + Math.random().toString(36).substr(2, 9)
 
 const initialTree = [
@@ -17,23 +16,23 @@ const initialTree = [
         name: 'Components',
         expanded: true,
         children: [
-          { id: uuid(), type: 'file', name: 'Header.jsx' },
-          { id: uuid(), type: 'file', name: 'Header.css' },
+          { id: uuid(), type: 'file', name: 'Header.jsx', content: "// Header component" },
+          { id: uuid(), type: 'file', name: 'Header.css', content: "/* Header styles */" },
         ],
       },
-      { id: uuid(), type: 'file', name: 'App.jsx' },
-      { id: uuid(), type: 'file', name: 'App.css' },
-      { id: uuid(), type: 'file', name: 'index.css' },
-      { id: uuid(), type: 'file', name: 'main.jsx' },
-      { id: uuid(), type: 'file', name: 'vite-env.d.ts' },
+      { id: uuid(), type: 'file', name: 'App.jsx', content: "// App component" },
+      { id: uuid(), type: 'file', name: 'App.css', content: "/* App styles */" },
+      { id: uuid(), type: 'file', name: 'index.css', content: "/* index styles */" },
+      { id: uuid(), type: 'file', name: 'main.jsx', content: "// main entry" },
+      { id: uuid(), type: 'file', name: 'vite-env.d.ts', content: "// Vite types" },
     ],
   },
-  { id: uuid(), type: 'file', name: 'index.html' },
-  { id: uuid(), type: 'file', name: 'package.json' },
-  { id: uuid(), type: 'file', name: 'vite.config.ts' },
+  { id: uuid(), type: 'file', name: 'index.html', content: "<!DOCTYPE html>" },
+  { id: uuid(), type: 'file', name: 'package.json', content: "{\n  \"name\": \"project\"\n}" },
+  { id: uuid(), type: 'file', name: 'vite.config.ts', content: "// Vite config" },
 ]
 
-// Map file extension to Codicon class
+// icon mapping remains unchanged
 const getFileIconClass = (filename) => {
   const ext = filename.split('.').pop().toLowerCase()
   if (filename === 'package.json') return 'codicon codicon-package'
@@ -69,12 +68,11 @@ const getFileIconClass = (filename) => {
   }
 }
 
-const Sidenav = () => {
+const Sidenav = ({ onFileOpen }) => {
   const [tree, setTree] = useState(initialTree)
-  const [editing, setEditing] = useState(null) // {id, value}
-  const [newFileInput, setNewFileInput] = useState(null) // {parentId, value}
+  const [editing, setEditing] = useState(null)
+  const [newFileInput, setNewFileInput] = useState(null)
 
-  // Recursive render
   const renderTree = (nodes, parentId = null, level = 0) => (
     <ul className="vsc-list" style={{ paddingLeft: level === 0 ? 0 : 16 }}>
       {nodes.map((node) => (
@@ -86,14 +84,12 @@ const Sidenav = () => {
                 : 'vscode-file vsc-file-row'
             }
             style={{ display: 'flex', alignItems: 'center' }}
-            onClick={
-              node.type === 'folder'
-                ? (e) => {
-                    e.stopPropagation()
-                    toggleExpand(node.id)
-                  }
-                : undefined
-            }
+            onClick={node.type === 'folder' ? (e) => {
+              e.stopPropagation()
+              toggleExpand(node.id)
+            } : () => {
+              if (onFileOpen) onFileOpen(node)
+            }}
           >
             {node.type === 'folder' && (
               <span className="vscode-folder-icon">{node.expanded ? '▼' : '▶'}</span>
@@ -140,7 +136,8 @@ const Sidenav = () => {
               </>
             )}
           </div>
-          {/* New file input for this folder */}
+
+          {/* New File Input */}
           {newFileInput && newFileInput.parentId === node.id && node.type === 'folder' && node.expanded && (
             <div style={{ paddingLeft: 24, margin: '2px 0' }}>
               <input
@@ -160,23 +157,21 @@ const Sidenav = () => {
               />
             </div>
           )}
+
           {node.type === 'folder' && node.expanded && node.children && renderTree(node.children, node.id, level + 1)}
         </li>
       ))}
     </ul>
   )
 
-  // Toggle folder expand/collapse
   const toggleExpand = (id) => {
     setTree(prev => updateNode(prev, id, node => ({ ...node, expanded: !node.expanded })))
   }
 
-  // Add file/folder
   const addNode = (parentId, type, name) => {
     setTree(prev => addNodeToTree(prev, parentId, type, name))
   }
 
-  // Finish renaming
   const finishRename = (node) => {
     if (editing && editing.value.trim()) {
       setTree(prev => updateNode(prev, node.id, n => ({ ...n, name: editing.value })))
@@ -184,8 +179,7 @@ const Sidenav = () => {
     setEditing(null)
   }
 
-  // Tree helpers
-  function updateNode(nodes, id, updater) {
+  const updateNode = (nodes, id, updater) => {
     return nodes.map(node => {
       if (node.id === id) return updater(node)
       if (node.type === 'folder' && node.children) {
@@ -194,33 +188,20 @@ const Sidenav = () => {
       return node
     })
   }
-  function addNodeToTree(nodes, parentId, type, name) {
+
+  const addNodeToTree = (nodes, parentId, type, name) => {
     return nodes.map(node => {
       if (node.id === parentId && node.type === 'folder') {
-        if (type === 'file' && name) {
-          const newNode = {
-            id: uuid(),
-            type,
-            name,
-          }
-          return {
-            ...node,
-            expanded: true,
-            children: [...(node.children || []), newNode],
-          }
-        } else if (type === 'folder') {
-          const newNode = {
-            id: uuid(),
-            type,
-            name: 'New Folder',
-            expanded: true,
-            children: [],
-          }
-          return {
-            ...node,
-            expanded: true,
-            children: [...(node.children || []), newNode],
-          }
+        const newNode = {
+          id: uuid(),
+          type,
+          name: name || 'New File',
+          ...(type === 'file' ? { content: '' } : { expanded: true, children: [] }),
+        }
+        return {
+          ...node,
+          expanded: true,
+          children: [...(node.children || []), newNode],
         }
       } else if (node.type === 'folder' && node.children) {
         return { ...node, children: addNodeToTree(node.children, parentId, type, name) }
