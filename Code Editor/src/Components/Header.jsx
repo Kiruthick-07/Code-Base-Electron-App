@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import './Header.css';
 
 const Header = () => {
+  /*File Menu*/
   const [fileMenuOpen, setFileMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // Close the dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -15,6 +15,21 @@ const Header = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+  /*File Menu*/
+
+/*Edit Menu*/
+const [editMenuOpen, setEditMenuOpen] = useState(false);
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setEditMenuOpen(false);
+    }
+  };
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+}, []);
+/*Edit Menu*/
+  
 
   const headerStyle = {
     backgroundColor: '#1e1e1e',
@@ -51,7 +66,7 @@ const Header = () => {
         <div style={leftMenuStyle} ref={menuRef}>
           <div className="menu-btn">☰</div>
           <button className="menu-btn" onClick={() => setFileMenuOpen(prev => !prev)}>File</button>
-          <button className="menu-btn">Edit</button>
+          <button className="menu-btn" onClick={() => setEditMenuOpen(prev => !prev)}>Edit</button>
           <button className="menu-btn">View</button>
           <button className="menu-btn">Run</button>
           <button className="menu-btn">Add Component</button>
@@ -71,6 +86,19 @@ const Header = () => {
             </div>
           )}
         </div>
+        {/* Edit Menu Dropdown */}
+        {editMenuOpen &&(
+        <div className="edit-dropdown-menu">
+        <div className="edit-dropdown-item">Undo</div>
+              <div className="edit-dropdown-item">Redo</div>
+              <div className="edit-dropdown-item">Cut</div>
+              <div className="edit-dropdown-item">Copy</div>
+              <div className="edit-dropdown-item">Paste</div>
+        </div>
+        )}
+       
+       
+
         <div className="search-bar-container">
           <input className="search-bar" type="text" placeholder="Search..." />
         </div>

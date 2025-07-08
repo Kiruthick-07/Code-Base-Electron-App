@@ -1,0 +1,61 @@
+{
+  "name": "code-base-electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "A desktop code editor built with Electron and React",
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/Kiruthick-07/Code-Base-Electron-App#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kiruthick-07/Code-Base-Electron-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kiruthick-07/Code-Base-Electron-App/issues"
+  },
+  "keywords": [
+    "electron",
+    "code-editor",
+    "desktop-app"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:react": "npm --prefix ./\"Code Editor\" run dev",
+    "dev:electron": "wait-on http://localhost:5173 && electron .",
+    "build": "npm run build:react && npm run build:electron",
+    "build:react": "npm --prefix ./\"Code Editor\" run build",
+    "build:electron": "electron-builder",
+    "start": "electron .",
+    "dist": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^37.1.0",
+    "electron-builder": "^25.1.8",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.codebase.editor",
+    "productName": "Code Base Editor",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "Code Editor/dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
