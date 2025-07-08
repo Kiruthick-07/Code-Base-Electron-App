@@ -81,7 +81,7 @@
   background-color: #2a2a2a;
   color: white;
 }
-.edit-dropdown-menu {
+.edit-dropdown-menu , .view-dropdown-menu , .run-dropdown-menu{
   position: fixed;
   top: 36px;
   left: 120px;
@@ -91,14 +91,14 @@
   z-index: 1100;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-.edit-dropdown-item {
+.edit-dropdown-item, .view-dropdown-item , .run-dropdown-item{
   padding: 8px 16px;
   font-size: 13px;
   color: #ccc;
   cursor: pointer;
   white-space: nowrap;
 }
-.edit-dropdown-item:hover {
+.edit-dropdown-item:hover, .view-dropdown-item:hover , .run-dropdown-item:hover {
   background-color: #2a2a2a;
   color: white;
 }

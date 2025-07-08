@@ -2,34 +2,24 @@ import React, { useState, useRef, useEffect } from 'react';
 import './Header.css';
 
 const Header = () => {
-  /*File Menu*/
   const [fileMenuOpen, setFileMenuOpen] = useState(false);
+  const [editMenuOpen, setEditMenuOpen] = useState(false);
+  const [viewMenuOpen, setViewMenuOpen] = useState(false);
+  const [runMenuOpen, setRunMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setFileMenuOpen(false);
+        setEditMenuOpen(false);
+        setViewMenuOpen(false);
+        setRunMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  /*File Menu*/
-
-/*Edit Menu*/
-const [editMenuOpen, setEditMenuOpen] = useState(false);
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setEditMenuOpen(false);
-    }
-  };
-  document.addEventListener('mousedown', handleClickOutside);
-  return () => document.removeEventListener('mousedown', handleClickOutside);
-}, []);
-/*Edit Menu*/
-  
 
   const headerStyle = {
     backgroundColor: '#1e1e1e',
@@ -67,8 +57,8 @@ useEffect(() => {
           <div className="menu-btn">☰</div>
           <button className="menu-btn" onClick={() => setFileMenuOpen(prev => !prev)}>File</button>
           <button className="menu-btn" onClick={() => setEditMenuOpen(prev => !prev)}>Edit</button>
-          <button className="menu-btn">View</button>
-          <button className="menu-btn">Run</button>
+          <button className="menu-btn" onClick={() => setViewMenuOpen(prev => !prev)}>View</button>
+          <button className="menu-btn" onClick={() => setRunMenuOpen(prev => !prev)}>Run</button>
           <button className="menu-btn">Add Component</button>
 
           {/* File Menu Dropdown */}
@@ -85,19 +75,39 @@ useEffect(() => {
               <div className="file-dropdown-item">Exit</div>
             </div>
           )}
-        </div>
-        {/* Edit Menu Dropdown */}
-        {editMenuOpen &&(
-        <div className="edit-dropdown-menu">
-        <div className="edit-dropdown-item">Undo</div>
+
+          {/* Edit Menu Dropdown */}
+          {editMenuOpen && (
+            <div className="edit-dropdown-menu">
+              <div className="edit-dropdown-item">Undo</div>
               <div className="edit-dropdown-item">Redo</div>
               <div className="edit-dropdown-item">Cut</div>
               <div className="edit-dropdown-item">Copy</div>
               <div className="edit-dropdown-item">Paste</div>
+            </div>
+          )}
+
+          {/* View Menu Dropdown */}
+          {viewMenuOpen && (
+            <div className="view-dropdown-menu">
+              <div className="view-dropdown-item">Toggle Sidebar</div>
+              <div className="view-dropdown-item">Music Player</div>
+              <div className="view-dropdown-item">Iris AI</div>
+              <div className="view-dropdown-item">Zoom In</div>
+              <div className="view-dropdown-item">Zoom Out</div>
+            </div>
+          )}
+
+          {/* Run Menu Dropdown */}
+          {runMenuOpen && (
+            <div className="run-dropdown-menu">
+              <div className="run-dropdown-item">Start Debugging</div>
+              <div className="run-dropdown-item">Stop Debugging</div>
+              <div className="run-dropdown-item">Run Without Debugging</div>
+              <div className="run-dropdown-item">View Terminal</div>
+            </div>
+          )}
         </div>
-        )}
-       
-       
 
         <div className="search-bar-container">
           <input className="search-bar" type="text" placeholder="Search..." />
