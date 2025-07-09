@@ -1,37 +1,46 @@
-import { useRef, useState } from 'react'
-import Header from './Components/Header'
-import Sidenav from './Components/Sidenav'
-import Codeditor from './Components/Codeditor'
-import './App.css'
+import { useState } from 'react';
+import Header from './Components/Header';
+import Sidenav from './Components/Sidenav';
+import Codeditor from './Components/Codeditor';
+import './App.css';
 
 function App() {
-  const [openTabs, setOpenTabs] = useState([])
-  const [activeTab, setActiveTab] = useState(null)
+  const [openTabs, setOpenTabs] = useState([]);
+  const [activeTab, setActiveTab] = useState(null);
+  const [explorerTree, setExplorerTree] = useState([]); // <-- holds the folder structure
 
+  // Open file tab
   const handleOpenFile = (file) => {
     setOpenTabs((prevTabs) => {
-      // Prevent duplicate tabs
-      const exists = prevTabs.find((tab) => tab.id === file.id)
-      return exists ? prevTabs : [...prevTabs, file]
-    })
-    setActiveTab(file.id)
-  }
+      const exists = prevTabs.find((tab) => tab.path === file.path);
+      return exists ? prevTabs : [...prevTabs, file];
+    });
+    setActiveTab(file.path); // Use file.path as tab ID
+  };
 
-  const handleCloseTab = (id) => {
-    setOpenTabs((prev) => prev.filter((tab) => tab.id !== id))
-    if (activeTab === id && openTabs.length > 1) {
-      const nextTab = openTabs.find((tab) => tab.id !== id)
-      setActiveTab(nextTab?.id || null)
+  // Close tab
+  const handleCloseTab = (path) => {
+    setOpenTabs((prev) => prev.filter((tab) => tab.path !== path));
+    if (activeTab === path && openTabs.length > 1) {
+      const nextTab = openTabs.find((tab) => tab.path !== path);
+      setActiveTab(nextTab?.path || null);
     } else if (openTabs.length === 1) {
-      setActiveTab(null)
+      setActiveTab(null);
     }
-  }
+  };
 
   return (
     <div className="app-container">
-      <Header />
+      <Header
+        setExplorerTree={setExplorerTree} // allow Header to update folder structure
+        openFileInTab={handleOpenFile}   // allow Header to open a file
+      />
       <div className="main-content">
-        <Sidenav onFileOpen={handleOpenFile} />
+        <Sidenav
+          tree={explorerTree}             // pass dynamic tree to sidenav
+          onFileClick={handleOpenFile}    // open file when clicked in sidenav
+          setExplorerTree={setExplorerTree} // allow Sidenav to refresh tree
+        />
         <div className="editor-container">
           <Codeditor
             openTabs={openTabs}
@@ -43,7 +52,7 @@ function App() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
