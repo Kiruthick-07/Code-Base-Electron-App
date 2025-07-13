@@ -10,12 +10,40 @@ function App() {
   const [explorerTree, setExplorerTree] = useState([]); // <-- holds the folder structure
 
   // Open file tab
-  const handleOpenFile = (file) => {
+  const handleOpenFile = async (file) => {
+    // If file already open, just activate
     setOpenTabs((prevTabs) => {
       const exists = prevTabs.find((tab) => tab.path === file.path);
-      return exists ? prevTabs : [...prevTabs, file];
+      return exists ? prevTabs : prevTabs;
     });
     setActiveTab(file.path); // Use file.path as tab ID
+
+    // If file already open, don't reload content
+    if (openTabs.find((tab) => tab.path === file.path)) return;
+
+    // If file has content (opened from Header), use it
+    if (file.content !== undefined) {
+      setOpenTabs((prevTabs) => {
+        const exists = prevTabs.find((tab) => tab.path === file.path);
+        return exists ? prevTabs : [...prevTabs, file];
+      });
+      return;
+    }
+
+    // Otherwise, load content from disk
+    if (window.electronAPI && window.electronAPI.readFile) {
+      try {
+        const content = await window.electronAPI.readFile(file.path);
+        setOpenTabs((prevTabs) => {
+          const exists = prevTabs.find((tab) => tab.path === file.path);
+          return exists ? prevTabs : [...prevTabs, { ...file, content }];
+        });
+      } catch (err) {
+        alert('Failed to read file: ' + err.message);
+      }
+    } else {
+      alert('File reading not supported.');
+    }
   };
 
   // Close tab

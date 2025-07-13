@@ -4,7 +4,7 @@ import Editor from '@monaco-editor/react';
 
 const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs }) => {
   const editorOptions = {
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 24,
     fontFamily: 'JetBrains Mono, Consolas, monospace',
     minimap: { enabled: true },
