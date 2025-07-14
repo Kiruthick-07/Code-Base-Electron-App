@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './Components/Header';
 import Sidenav from './Components/Sidenav';
 import Codeditor from './Components/Codeditor';
+import Terminal from './Components/Terminal';
 import './App.css';
 
 function App() {
@@ -77,6 +78,9 @@ function App() {
             onCloseTab={handleCloseTab}
             setOpenTabs={setOpenTabs}
           />
+        </div>
+        <div className="terminal-container">
+          <Terminal />
         </div>
       </div>
     </div>

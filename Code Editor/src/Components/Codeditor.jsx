@@ -45,6 +45,9 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
                   tab.id === activeFile.id ? { ...tab, content: newValue } : tab
                 )
               );
+              if (window.electronAPI && window.electronAPI.saveFile) {
+                window.electronAPI.saveFile(activeFile.path, newValue);
+              }
             }}
             options={editorOptions}
           />
@@ -57,4 +60,3 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
 };
 
 export default Codeditor;
-336
