@@ -80,7 +80,7 @@ function App() {
           />
         </div>
         <div className="terminal-container">
-          <Terminal />
+         
         </div>
       </div>
     </div>

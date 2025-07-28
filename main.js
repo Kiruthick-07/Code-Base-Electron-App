@@ -2,7 +2,6 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const fsPromises = require('fs').promises;
-const { spawn } = require('node-pty');
 
 // Recursively build tree structure
 function buildFileTree(dir) {
@@ -75,10 +74,7 @@ ipcMain.handle('file:save', async (event, filePath, content) => {
   return true;
 });
 
-// Terminal integration
 let mainWindow; // Will be assigned in createWindow
-let shell = process.platform === 'win32' ? 'powershell.exe' : 'bash';
-let ptyProcess;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -93,25 +89,6 @@ function createWindow() {
 
   // Load your Vite dev server
   mainWindow.loadURL('http://localhost:5173');
-
-  // Start terminal process after window is created
-  ptyProcess = spawn(shell, [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: process.env.HOME || process.env.USERPROFILE,
-    env: process.env,
-  });
-
-  ipcMain.on('terminal-input', (event, data) => {
-    ptyProcess.write(data);
-  });
-
-  ptyProcess.onData((data) => {
-    if (mainWindow && mainWindow.webContents) {
-      mainWindow.webContents.send('terminal-output', data);
-    }
-  });
 }
 
 app.whenReady().then(createWindow);

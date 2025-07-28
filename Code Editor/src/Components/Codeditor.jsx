@@ -13,7 +13,7 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
   };
 
   // Get current active file
-  const activeFile = openTabs.find(tab => tab.id === activeTab);
+  const activeFile = openTabs.find(tab => tab.path === activeTab);
 
   return (
     <div className="vsc-editor-outer">
@@ -21,12 +21,12 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
       <div className="vsc-tabbar">
         {openTabs.map(tab => (
           <div
-            key={tab.id}
-            className={`vsc-tab${activeTab === tab.id ? ' vsc-tab-active' : ''}`}
-            onClick={() => setActiveTab(tab.id)}
+            key={tab.path}
+            className={`vsc-tab${activeTab === tab.path ? ' vsc-tab-active' : ''}`}
+            onClick={() => setActiveTab(tab.path)}
           >
             <span className="vsc-tab-label">{tab.name}</span>
-            <span className="vsc-tab-close" onClick={(e) => { e.stopPropagation(); onCloseTab(tab.id); }}>×</span>
+            <span className="vsc-tab-close" onClick={(e) => { e.stopPropagation(); onCloseTab(tab.path); }}>×</span>
           </div>
         ))}
       </div>
@@ -42,7 +42,7 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
             onChange={(newValue) => {
               setOpenTabs(prev =>
                 prev.map(tab =>
-                  tab.id === activeFile.id ? { ...tab, content: newValue } : tab
+                  tab.path === activeFile.path ? { ...tab, content: newValue } : tab
                 )
               );
               if (window.electronAPI && window.electronAPI.saveFile) {
