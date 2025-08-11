@@ -81,7 +81,7 @@
   background-color: #2a2a2a;
   color: white;
 }
-.edit-dropdown-menu , .view-dropdown-menu , .run-dropdown-menu{
+.edit-dropdown-menu , .view-dropdown-menu , .run-dropdown-men ,.add-component-dropdown-menu{
   position: fixed;
   top: 36px;
   left: 120px;
@@ -91,7 +91,7 @@
   z-index: 1100;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-.edit-dropdown-item, .view-dropdown-item , .run-dropdown-item{
+.edit-dropdown-item, .view-dropdown-item , .run-dropdown-item,.add-component-dropdown-item{
   padding: 8px 16px;
   font-size: 13px;
   color: #ccc;

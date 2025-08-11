@@ -6,6 +6,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
   const [editMenuOpen, setEditMenuOpen] = useState(false);
   const [viewMenuOpen, setViewMenuOpen] = useState(false);
   const [runMenuOpen, setRunMenuOpen] = useState(false);
+  const [addComponentMenuOpen, setAddComponentMenuOpen] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -70,7 +71,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
           <button className="menu-btn" onClick={() => setEditMenuOpen(prev => !prev)}>Edit</button>
           <button className="menu-btn" onClick={() => setViewMenuOpen(prev => !prev)}>View</button>
           <button className="menu-btn" onClick={() => setRunMenuOpen(prev => !prev)}>Run</button>
-          <button className="menu-btn">Add Component</button>
+          <button className="menu-btn" onClick={() => setAddComponentMenuOpen(prev => !prev)}>Add Component</button>
 
           {/* File Menu Dropdown */}
           {fileMenuOpen && (
@@ -117,6 +118,13 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
             <div className="run-dropdown-item">Stop Debugging</div>
             <div className="run-dropdown-item">Run Without Debugging</div>
             <div className="run-dropdown-item">View Terminal</div>
+          </div>
+        )}
+
+        {/* Add Component Menu Dropdown */}
+        {addComponentMenuOpen && (
+          <div className="add-component-dropdown-menu">
+            <div className="add-component-dropdown-item">Add Button</div>
           </div>
         )}
 
