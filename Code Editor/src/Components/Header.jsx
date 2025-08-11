@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Header.css';
+import ComponentLibraryModal from './ComponentLibraryModal';
 
 const Header = ({ setExplorerTree, openFileInTab }) => {
   const [fileMenuOpen, setFileMenuOpen] = useState(false);
@@ -7,6 +8,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
   const [viewMenuOpen, setViewMenuOpen] = useState(false);
   const [runMenuOpen, setRunMenuOpen] = useState(false);
   const [addComponentMenuOpen, setAddComponentMenuOpen] = useState(false);
+  const [showLibrary, setShowLibrary] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -124,7 +126,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         {/* Add Component Menu Dropdown */}
         {addComponentMenuOpen && (
           <div className="add-component-dropdown-menu">
-            <div className="add-component-dropdown-item">Add Button</div>
+            <div className="add-component-dropdown-item" onClick={() => { setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Button</div>
           </div>
         )}
 
@@ -133,6 +135,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         </div>
         <div style={rightTextStyle}>Code Base</div>
       </div>
+      <ComponentLibraryModal isOpen={showLibrary} onClose={() => setShowLibrary(false)} componentKey="Button" />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import Editor from '@monaco-editor/react';
+import { useEditorContext } from '../EditorContext';
  
 
 const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs }) => {
@@ -14,6 +15,7 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
 
   // Get current active file
   const activeFile = openTabs.find(tab => tab.path === activeTab);
+  const { setEditorInstance } = useEditorContext();
 
   return (
     <div className="vsc-editor-outer">
@@ -39,6 +41,10 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
             theme="vs-dark"
             language="javascript"
             value={activeFile.content}
+            onMount={(editor, monaco) => {
+              setEditorInstance(editor, monaco);
+              editor.focus();
+            }}
             onChange={(newValue) => {
               setOpenTabs(prev =>
                 prev.map(tab =>

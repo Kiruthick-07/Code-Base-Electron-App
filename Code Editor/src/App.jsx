@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Header from './Components/Header';
 import Sidenav from './Components/Sidenav';
 import Codeditor from './Components/Codeditor';
-import Terminal from './Components/Terminal';
+import { EditorProvider } from './EditorContext';
 import './App.css';
 
 function App() {
@@ -59,31 +59,30 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Header
-        setExplorerTree={setExplorerTree} // allow Header to update folder structure
-        openFileInTab={handleOpenFile}   // allow Header to open a file
-      />
-      <div className="main-content">
-        <Sidenav
-          tree={explorerTree}             // pass dynamic tree to sidenav
-          onFileClick={handleOpenFile}    // open file when clicked in sidenav
-          setExplorerTree={setExplorerTree} // allow Sidenav to refresh tree
+    <EditorProvider>
+      <div className="app-container">
+        <Header
+          setExplorerTree={setExplorerTree}
+          openFileInTab={handleOpenFile}
         />
-        <div className="editor-container">
-          <Codeditor
-            openTabs={openTabs}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            onCloseTab={handleCloseTab}
-            setOpenTabs={setOpenTabs}
+        <div className="main-content">
+          <Sidenav
+            tree={explorerTree}
+            onFileClick={handleOpenFile}
+            setExplorerTree={setExplorerTree}
           />
-        </div>
-        <div className="terminal-container">
-         
+          <div className="editor-container">
+            <Codeditor
+              openTabs={openTabs}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              onCloseTab={handleCloseTab}
+              setOpenTabs={setOpenTabs}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </EditorProvider>
   );
 }
 
