@@ -9,6 +9,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
   const [runMenuOpen, setRunMenuOpen] = useState(false);
   const [addComponentMenuOpen, setAddComponentMenuOpen] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
+  const [selectedComponent, setSelectedComponent] = useState('Button');
 
   const menuRef = useRef(null);
 
@@ -126,7 +127,8 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         {/* Add Component Menu Dropdown */}
         {addComponentMenuOpen && (
           <div className="add-component-dropdown-menu">
-            <div className="add-component-dropdown-item" onClick={() => { setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Button</div>
+            <div className="add-component-dropdown-item" onClick={() => { setSelectedComponent('Button'); setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Button</div>
+            <div className="add-component-dropdown-item" onClick={() => { setSelectedComponent('Card'); setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Card</div>
           </div>
         )}
 
@@ -135,7 +137,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         </div>
         <div style={rightTextStyle}>Code Base</div>
       </div>
-      <ComponentLibraryModal isOpen={showLibrary} onClose={() => setShowLibrary(false)} componentKey="Button" />
+      <ComponentLibraryModal isOpen={showLibrary} onClose={() => setShowLibrary(false)} componentKey={selectedComponent} />
     </>
   );
 };

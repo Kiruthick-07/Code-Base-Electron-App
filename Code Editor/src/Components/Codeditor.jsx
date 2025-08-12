@@ -13,7 +13,7 @@ const Codeditor = ({ openTabs, activeTab, setActiveTab, onCloseTab, setOpenTabs 
     automaticLayout: true,
   };
 
-  // Get current active file
+ 
   const activeFile = openTabs.find(tab => tab.path === activeTab);
   const { setEditorInstance } = useEditorContext();
 
