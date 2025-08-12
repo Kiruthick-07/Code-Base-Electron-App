@@ -36,3 +36,12 @@ body{
 .cb-btn-secondary:hover {
   background-color: #374151;
 }
+
+.cb-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cb-btn:disabled:hover {
+  background-color: inherit;
+}
