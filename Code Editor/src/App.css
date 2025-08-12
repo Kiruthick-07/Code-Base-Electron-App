@@ -154,3 +154,29 @@ body {
 }
 
 /* End VS Code-like tab bar styles */
+
+/* Component Library Modal Button Styles */
+.cb-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.cb-btn-primary {
+  background-color: #0078d4;
+  color: white;
+}
+
+.cb-btn-primary:hover {
+  background-color: #106ebe;
+}
+
+.cb-btn-small {
+  padding: 6px 12px;
+  font-size: 13px;
+}

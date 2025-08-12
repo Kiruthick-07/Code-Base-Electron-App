@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Header.css';
 import ComponentLibraryModal from './ComponentLibraryModal';
-import PresetsModal from './PresetsModal';
 
 const Header = ({ setExplorerTree, openFileInTab }) => {
   const [fileMenuOpen, setFileMenuOpen] = useState(false);
@@ -11,7 +10,6 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
   const [addComponentMenuOpen, setAddComponentMenuOpen] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState('Button');
-  const [showPresetsModal, setShowPresetsModal] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -22,7 +20,6 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         setEditMenuOpen(false);
         setViewMenuOpen(false);
         setRunMenuOpen(false);
-        setAddComponentMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -130,10 +127,18 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         {/* Add Component Menu Dropdown */}
         {addComponentMenuOpen && (
           <div className="add-component-dropdown-menu">
-            <div className="add-component-dropdown-item" onClick={() => { setSelectedComponent('Button'); setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Button</div>
-            <div className="add-component-dropdown-item" onClick={() => { setSelectedComponent('Card'); setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Card</div>
-            <div className="add-component-dropdown-item" onClick={() => { setShowPresetsModal(true); setAddComponentMenuOpen(false); }}>Presets</div>
-            <div className="add-component-dropdown-item" onClick={() => { setSelectedComponent('Navbar'); setShowLibrary(true); setAddComponentMenuOpen(false); }}>Add Navbar</div>
+            <div className="add-component-dropdown-item" onClick={() => { 
+              console.log('Setting selectedComponent to Button');
+              setSelectedComponent('Button'); 
+              setShowLibrary(true); 
+              setAddComponentMenuOpen(false); 
+            }}>Add Button</div>
+            <div className="add-component-dropdown-item" onClick={() => { 
+              console.log('Setting selectedComponent to Card');
+              setSelectedComponent('Card'); 
+              setShowLibrary(true); 
+              setAddComponentMenuOpen(false); 
+            }}>Add Card</div>
           </div>
         )}
 
@@ -143,7 +148,6 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         <div style={rightTextStyle}>Code Base</div>
       </div>
       <ComponentLibraryModal isOpen={showLibrary} onClose={() => setShowLibrary(false)} componentKey={selectedComponent} />
-      <PresetsModal isOpen={showPresetsModal} onClose={() => setShowPresetsModal(false)} />
     </>
   );
 };
