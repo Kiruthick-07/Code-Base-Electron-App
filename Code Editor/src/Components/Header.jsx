@@ -145,7 +145,7 @@ const Header = ({ setExplorerTree, openFileInTab }) => {
         <div className="search-bar-container">
           <input className="search-bar" type="text" placeholder="Search..." />
         </div>
-        <div style={rightTextStyle}>Code Base</div>
+        <div style={rightTextStyle}>BlackFrame</div>
       </div>
       <ComponentLibraryModal isOpen={showLibrary} onClose={() => setShowLibrary(false)} componentKey={selectedComponent} />
     </>
