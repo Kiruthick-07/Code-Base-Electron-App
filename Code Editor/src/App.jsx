@@ -8,21 +8,21 @@ import './App.css';
 function App() {
   const [openTabs, setOpenTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
-  const [explorerTree, setExplorerTree] = useState([]); // <-- holds the folder structure
+  const [explorerTree, setExplorerTree] = useState([]); 
 
-  // Open file tab
+
   const handleOpenFile = async (file) => {
-    // If file already open, just activate
+   
     setOpenTabs((prevTabs) => {
       const exists = prevTabs.find((tab) => tab.path === file.path);
       return exists ? prevTabs : prevTabs;
     });
-    setActiveTab(file.path); // Use file.path as tab ID
+    setActiveTab(file.path); 
 
-    // If file already open, don't reload content
+   
     if (openTabs.find((tab) => tab.path === file.path)) return;
 
-    // If file has content (opened from Header), use it
+ 
     if (file.content !== undefined) {
       setOpenTabs((prevTabs) => {
         const exists = prevTabs.find((tab) => tab.path === file.path);
@@ -31,7 +31,7 @@ function App() {
       return;
     }
 
-    // Otherwise, load content from disk
+    
     if (window.electronAPI && window.electronAPI.readFile) {
       try {
         const content = await window.electronAPI.readFile(file.path);
@@ -47,7 +47,7 @@ function App() {
     }
   };
 
-  // Close tab
+  
   const handleCloseTab = (path) => {
     setOpenTabs((prev) => prev.filter((tab) => tab.path !== path));
     if (activeTab === path && openTabs.length > 1) {
