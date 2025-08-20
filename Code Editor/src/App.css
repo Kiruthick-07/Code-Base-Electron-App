@@ -25,6 +25,7 @@
   height: calc(100vh - 45px); 
   overflow: hidden;
   background-color: black;
+  position: relative;
 }
 
 /* Remove default margins and padding */
@@ -179,4 +180,41 @@ body {
 .cb-btn-small {
   padding: 6px 12px;
   font-size: 13px;
+}
+
+/* Chat Toggle Button Styles */
+.chat-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-toggle-btn:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust editor container when chat is visible */
+.editor-container.chat-visible {
+  margin-right: 400px;
 }

@@ -13,6 +13,12 @@ export function EditorProvider({ children }) {
   const setEditorInstance = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
+    
+    // Expose editor globally for ChatPanel access
+    if (typeof window !== 'undefined') {
+      window.monacoEditor = editor;
+      window.monaco = monaco;
+    }
   };
 
   const ensureImportPresent = (importStatement) => {

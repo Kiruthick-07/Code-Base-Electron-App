@@ -2,13 +2,15 @@ import { useState } from 'react';
 import Header from './Components/Header';
 import Sidenav from './Components/Sidenav';
 import Codeditor from './Components/Codeditor';
+import ChatPanel from './Components/ChatPanel';
 import { EditorProvider } from './EditorContext';
 import './App.css';
 
 function App() {
   const [openTabs, setOpenTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
-  const [explorerTree, setExplorerTree] = useState([]); 
+  const [explorerTree, setExplorerTree] = useState([]);
+  const [isChatVisible, setIsChatVisible] = useState(false); 
 
 
   const handleOpenFile = async (file) => {
@@ -79,8 +81,23 @@ function App() {
               onCloseTab={handleCloseTab}
               setOpenTabs={setOpenTabs}
             />
+            
+            {/* Chat Toggle Button */}
+            <button 
+              className="chat-toggle-btn"
+              onClick={() => setIsChatVisible(!isChatVisible)}
+              title="Toggle AI Assistant"
+            >
+              {isChatVisible ? '🤖' : '💬'}
+            </button>
           </div>
         </div>
+        
+        {/* Chat Panel */}
+        <ChatPanel 
+          isVisible={isChatVisible} 
+          onToggle={() => setIsChatVisible(false)} 
+        />
       </div>
     </EditorProvider>
   );
